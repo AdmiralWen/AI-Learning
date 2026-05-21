@@ -7,8 +7,9 @@
 from random import randrange
 
 # Set up mcp server using FastMCP, name it 'DemoServer'.
-from mcp.server.fastmcp import FastMCP
-mcp = FastMCP('DemoServer', log_level="CRITICAL")
+#from mcp.server.fastmcp import FastMCP
+from fastmcp import FastMCP
+mcp = FastMCP('PrimeTools')
 
 # Define some tools and expose them to the server.
 @mcp.tool()
@@ -60,23 +61,14 @@ def get_prime_factors(n: int) -> list[int]:
         factors.append(n)
     return factors
 
-# @mcp.tool()
-# def add(a: int, b: int) -> int:
-#     """Add two numbers."""
-#     return a + b
-
-# @mcp.tool()
-# def shout(s: str) -> str:
-#     """Convert a string to uppercase."""
-#     return s.upper()
-
 
 # Finally, we run the server. By default, it will run locally and communicate over stdio. Once we
 # have this, we can start the server by running the .py file in terminal `python mcp_server_local.py`, or
 # if using the CLI, then `fastmcp run server.py –transport http –port 8000`
 if __name__ == "__main__":
     # Run server locally (default option, 'stdio'):
-    mcp.run(transport='stdio')
+    # In our case, stdio doesn't work when using terminal.
+    #mcp.run(transport='stdio')
 
     # Or run over HTTP if you want to run it on cloud or over a network:
-    # mcp.run(transport="http", host="0.0.0.0", port=8000)
+    mcp.run(transport="http", host="127.0.0.1", port=8000)
